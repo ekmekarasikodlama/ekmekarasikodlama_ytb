@@ -99,5 +99,24 @@ if(Properties.Settings.Default.ilkbaslatma == true)
           txt_sifre.UseSystemPasswordChar = !txt_sifre.UseSystemPasswordChar;
 
    //Burası içerik sayfası. Burada kullanıcı hesabına girmiş oluyor.
-   
+    -icerik.cs
+    //public int suankihesapindeksi;   bir int gerekiyor.
+      -icerik_Load()
+          if(Properties.Settings.Default.kullanicibilgilistesi.Count < 0) {  return; }
+          string suankihesap = Properties.Settings.Default.kullanicibilgilistesi.ToArray()[suankihesapindeksi];
+          lbl_mrb.Text = "Merhaba, " + suankihesap.Split('<')[0];
+      -btn_hesapsil_Click()
+          Properties.Settings.Default.kullanicibilgilistesi.RemoveAt(suankihesapindeksi);
+          Properties.Settings.Default.Save();
+          GirisEkranı gs = new GirisEkranı();
+          gs.Show();
+          Hide();
+       -icerik_FormClosing()
+         Application.Exit();
+       -btn_oturumdancik (videoda yine yanlış yapmışım)
+         Hide();
+         GirisEkranı gs = new GirisEkranı();
+         gs.Show();
+         
+
             
