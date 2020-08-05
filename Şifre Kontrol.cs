@@ -29,7 +29,7 @@ static void Main(string[] args)
                 baslangic();
             }
 
-            void uzunlukKontrol()
+            void uzunlukKontrol() 
             {
                 if(karakterler.Length >= 6)
                 {
