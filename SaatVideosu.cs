@@ -36,7 +36,7 @@ namespace saatuygulamasıkonsol
 
             Console.WriteLine("Ortaya çıkan tarih: " + DateTime.Now.AddYears(int.Parse(eklenecekyil)).AddMonths(int.Parse(eklenecekay)).AddDays(int.Parse(eklenecekgun)).AddHours(int.Parse(ekleneceksaat)).AddMinutes(int.Parse(eklenecekdakika)));
 
-            Console.ReadLine();
+            Console.ReadLine(); 
         }
     }
 }
