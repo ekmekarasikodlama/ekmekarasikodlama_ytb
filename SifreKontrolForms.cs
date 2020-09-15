@@ -29,7 +29,7 @@ btn_kaydol.Enabled = false;
           }
           sayikontrol();
          }
-                void sayikontrol()
+         void sayikontrol()
                 {
                     foreach(char karakter in karakterler)
                     {
