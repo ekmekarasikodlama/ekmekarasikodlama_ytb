@@ -1,4 +1,6 @@
-basadon:
+ static void Main(string[] args)
+        {
+        basadon:
             List<double> sayilar = new List<double>();
             Console.WriteLine("Sayıları giriniz:");
         tekrargir:
@@ -37,3 +39,4 @@ basadon:
             Console.WriteLine("Sonuç: " + sonuc);
             Console.WriteLine("----------");
             goto basadon;
+        }
