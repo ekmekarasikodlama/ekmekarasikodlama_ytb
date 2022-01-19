@@ -37,8 +37,10 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
         
   //forms kısmı 
   
-   public List<TextBox> sayiKutulari = new List<TextBox>();
-        public List<Label> bolenyazilari = new List<Label>();
+   List<TextBox> sayiKutulari = new List<TextBox>();
+        List<TextBox> eklenenSayiKutulari = new List<TextBox>();
+        List<Label> bolenyazilari = new List<Label>();
+        List<Button> sayiSilicileri = new List<Button>();
 
         public anaform()
         {
@@ -56,19 +58,70 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
             TextBox yeniKutu = new TextBox();
             yeniKutu.Size = new Size(56, 35);
             yeniKutu.Font = tbox_sayi1.Font;
-            yeniKutu.Location = new Point(15 + (sayiKutulari.Count * 60), 12);
 
-            btn_sayiekle.Location = new Point(yeniKutu.Location.X + 100, 12);
+
+            Button yeniKutuSilici = new Button();
+            yeniKutuSilici.Size = new Size(12, 12);
+            yeniKutuSilici.Text = "";
+            yeniKutuSilici.FlatStyle = FlatStyle.Flat;
+            yeniKutuSilici.BackColor = Color.Red;
+            yeniKutuSilici.Click += delegate
+            {
+                kutuSil(yeniKutu, yeniKutuSilici);
+            };
+
+
+            Controls.Add(yeniKutuSilici);
+            Controls.Add(yeniKutu);
+
+            sayiKutulari.Add(yeniKutu);
+            eklenenSayiKutulari.Add(yeniKutu);
+           
+            sayiSilicileri.Add(yeniKutuSilici);
+
+            for (int i = 0; i < sayiSilicileri.Count; i++)
+            {
+                kutuYerleştir(eklenenSayiKutulari[i], sayiSilicileri[i], i+2);
+            }
+
+
+            arayüzüTemizle();
+            Size = new Size(420 + (sayiKutulari.Count - 2) * 60, Size.Height);
+        }
+
+        void kutuYerleştir(TextBox tbox, Button btn, int i)
+        {
+            tbox.Location = new Point(15 + (i * 60), 12);
+            btn.Location = new Point(15 + (i * 60), 10);
+            btn_sayiekle.Location = new Point(tbox.Location.X + 100, 12);
             pbox_ayirac.Location = new Point(btn_sayiekle.Location.X - 40, 12);
             btn_işle.Location = new Point(btn_sayiekle.Location.X + 35, 12);
             btn_minimize.Location = new Point(btn_işle.Location.X + 140, 12);
             btn_kapat.Location = new Point(btn_minimize.Location.X + 35, 12);
+        }
 
-
-            Controls.Add(yeniKutu);
-            sayiKutulari.Add(yeniKutu);
+        void kutuSil(TextBox tbox, Button buton)
+        {
+            Controls.Remove(tbox);
+            Controls.Remove(buton);
+            sayiSilicileri.Remove(buton);
+            sayiKutulari.Remove(tbox);
+            eklenenSayiKutulari.Remove(tbox);
             arayüzüTemizle();
-            Size = new Size(420 + (sayiKutulari.Count-2) * 60,Size.Height);
+            for (int i = 0; i < sayiSilicileri.Count; i++)
+            {
+                kutuYerleştir(eklenenSayiKutulari[i], sayiSilicileri[i], i+2);
+            }
+            if (sayiSilicileri.Count == 0)
+            {
+                pbox_ayirac.Location = new Point(134, 12);
+                btn_sayiekle.Location = new Point(175, 12);
+                btn_işle.Location = new Point(212, 12);
+                btn_minimize.Location = new Point(347, 12);
+                btn_kapat.Location = new Point(383, 12);
+            }
+            Size = new Size(420 + (sayiKutulari.Count - 2) * 60, Size.Height);
+
         }
 
         void arayüzüTemizle()
@@ -90,8 +143,6 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
                 {
                     sayılar.Add(int.Parse(tb.Text));
                 }
-
-                List<int> orijinalKopya = sayılar;
 
                 List<(int, bool)> kullanılanCarpanlar = new List<(int, bool)>();
 
@@ -133,7 +184,7 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
                             sayılar[i] /= enKucukCarpan;
                         }
                         bolumlabel.Text = sayılar[i].ToString();
-                    
+
 
                         Controls.Add(bolumlabel);
                         bolenyazilari.Add(bolumlabel);
@@ -157,9 +208,9 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
                 {
                     ebob *= ortaklar.ElementAt(i).Item1;
                     işlem += ortaklar.ElementAt(i).Item1.ToString();
-                    işlem += (i != ortaklar.Count() - 1 ?  "*" : "");
+                    işlem += (i != ortaklar.Count() - 1 ? "*" : "");
                 }
-                if(işlem.Count() == 1)
+                if (işlem.Count() == 1)
                 {
                     işlem += "*1";
                 }
@@ -174,7 +225,7 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
                     ekokişlem += kullanılanCarpanlar[i].Item1.ToString();
                     ekokişlem += (i != kullanılanCarpanlar.Count() - 1 ? "*" : "");
                 }
-                if(ekokişlem.Count() == 1)
+                if (ekokişlem.Count() == 1)
                 {
                     ekokişlem += "*1";
                 }
@@ -182,8 +233,8 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
             }
             else
             {
-                MessageBox.Show("Bütün metin kutularında geçerli değerler bulunmamaktadır.");
-                foreach(TextBox tb in sayiKutulari)
+                MessageBox.Show("Bütün metin kutularında geçerli değerler bulunmamaktadır.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                foreach (TextBox tb in sayiKutulari)
                 {
                     tb.Text = "";
                 }
@@ -213,7 +264,7 @@ public static Dictionary<int, int> asalÇarpanlaraAyır(int ayrilacak)
 
         private void anaform_MouseMove(object sender, MouseEventArgs e)
         {
-            if(drag)
+            if (drag)
             {
                 Location = new Point(Location.X + e.X, Location.Y + e.Y);
             }
