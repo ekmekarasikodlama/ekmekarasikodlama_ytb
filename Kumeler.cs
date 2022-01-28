@@ -122,14 +122,14 @@ public static List<int> kesişim(List<List<int>> kümeler)
             if (seçilenKümeSayfaları.Count > 1)
             {
                 List<(bool, List<int>)> sonuclar = new List<(bool, List<int>)>();
-                foreach (KümeKontrol kt in kümeSayfaları)
+                foreach (KümeKontrol kt in seçilenKümeSayfaları)
                 {
                     sonuclar.Add(kt.degerVer());
                 }
                 if (sonuclar.All(x => x.Item1 == true))
                 {
                     List<List<int>> kumeler = new List<List<int>>();
-                    foreach (KümeKontrol kt in kümeSayfaları)
+                    foreach (KümeKontrol kt in seçilenKümeSayfaları)
                     {
                         kumeler.Add(kt.degerVer().Item2);
                     }
@@ -148,14 +148,14 @@ public static List<int> kesişim(List<List<int>> kümeler)
             if (seçilenKümeSayfaları.Count > 1)
             {
                 List<(bool, List<int>)> sonuclar = new List<(bool, List<int>)>();
-                foreach (KümeKontrol kt in kümeSayfaları)
+                foreach (KümeKontrol kt in seçilenKümeSayfaları)
                 {
                     sonuclar.Add(kt.degerVer());
                 }
                 if (sonuclar.All(x => x.Item1 == true))
                 {
                     List<List<int>> kumeler = new List<List<int>>();
-                    foreach (KümeKontrol kt in kümeSayfaları)
+                    foreach (KümeKontrol kt in seçilenKümeSayfaları)
                     {
                         kumeler.Add(kt.degerVer().Item2);
                     }
@@ -174,14 +174,14 @@ public static List<int> kesişim(List<List<int>> kümeler)
             if (seçilenKümeSayfaları.Count > 1 && int.TryParse(tbox_icerik.Text, out int i))
             {
                 List<(bool, List<int>)> sonuclar = new List<(bool, List<int>)>();
-                foreach (KümeKontrol kt in kümeSayfaları)
+                foreach (KümeKontrol kt in seçilenKümeSayfaları)
                 {
                     sonuclar.Add(kt.degerVer());
                 }
                 if (sonuclar.All(x => x.Item1 == true))
                 {
                     List<List<int>> kumeler = new List<List<int>>();
-                    foreach (KümeKontrol kt in kümeSayfaları)
+                    foreach (KümeKontrol kt in seçilenKümeSayfaları)
                     {
                         kumeler.Add(kt.degerVer().Item2);
                     }
